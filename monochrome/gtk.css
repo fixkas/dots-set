@@ -1,0 +1,94 @@
+* {
+  transition: 0ms;
+  animation: 0ms;
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
+/*Workspace*/
+#xfce-panel-toggle-button {
+  color: #ffffff;
+  min-width: 2rem;
+  margin-right: 2px;
+}
+#xfce-panel-toggle-button:checked {
+  background: #ffffff;
+  color: black;
+}
+#xfce-panel-toggle-button:checked:hover {
+  background: #ffffff;
+  color: black;
+}
+#xfce-panel-toggle-button:hover {
+  background: #282828;
+  color: white;
+}
+
+/*Notification*/
+#xfce4-notification-plugin {
+  color: white;
+  min-width: 2rem;
+}
+#xfce4-notification-plugin:hover {
+  background: #282828;
+}
+
+/*Sound*/
+#pulseaudio-button {
+  color: white;
+  min-width: 2rem;
+}
+#pulseaudio-button:hover {
+  background: #282828;
+}
+
+/*Battery*/
+#xfce4-power-manager-plugin {
+  color: white;
+  min-width: 2rem;
+}
+#xfce4-power-manager-plugin:hover {
+  background: #282828;
+}
+
+/*Clock*/
+#clock-button {
+  color: white;
+  min-width: 3.5rem;
+}
+
+#clock-button:hover {
+  background: #282828;
+}
+
+#actions-button {
+  color: white;
+  min-width: 2rem;
+  font-size: 1.2rem;
+}
+
+#actions-button:hover {
+  background-color: #282828;
+}
+
+/* Status Tray / Status Notifier */
+#sn-button {
+  color: #ffffff;
+  min-width: 2rem;
+  background: transparent;
+}
+
+#sn-button:hover {
+  background: #282828;
+  color: #ffffff;
+}
+
+#sn-button image {
+  color: #ffffff;
+}
+
+#sn-button-box {
+  color: #ffffff;
+  background: transparent;
+}
