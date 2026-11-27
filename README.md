@@ -30,6 +30,8 @@ The commands in each rice section assume you are at the repo root.
 
 ```
 dots-set/
+├── README.md
+├── .gitignore
 ├── darverest/
 │   ├── gtk.css
 │   ├── alacritty.toml
@@ -57,9 +59,11 @@ dots-set/
 | `<rice>/fastfetch/`     | `~/.config/fastfetch/`                 |
 | `<rice>/wallpapers/`    | anywhere; pick it in Desktop settings  |
 
-`gtk.css` is panel-only overrides. It styles XFCE panel widgets — workspace
-switcher, clock, notification, sound, battery, action button, status tray — and
-layers on top of the GTK theme. It does not restyle applications. The theme zip
+`gtk.css` is panel-focused overrides. The rules target XFCE panel widgets —
+workspace switcher, clock, notification, sound, battery, action button, status
+tray — and layer on top of the GTK theme. Note that each file opens with a
+global reset (`border: none; box-shadow: none; …`), so GTK3 apps that read it
+also lose borders and shadows. It is not a full application theme; the zip
 supplies the application and window-manager styling.
 
 After copying `gtk.css`, restart the panel so the changes show up:
@@ -68,14 +72,12 @@ After copying `gtk.css`, restart the panel so the changes show up:
 xfce4-panel -r
 ```
 
-If window borders or titlebars look stale, restart the window manager too:
+Theme zips also ship `xfwm4/` window borders, so each rice's commands select the
+matching window-manager theme and reload it with `xfwm4 --replace &`.
 
-```bash
-xfwm4 --replace
-```
-
-Each rice overwrites the same two config files, so applying another rice is
-just running its commands again. Themes coexist in `~/.themes/`.
+Each rice writes the same config paths, so applying another rice replaces the
+previous one. `grovy` also installs a fastfetch config; the other rices leave
+any existing one in place. Themes coexist in `~/.themes/`.
 
 ## darverest (active)
 
@@ -96,11 +98,13 @@ mkdir -p ~/.themes ~/.config/gtk-3.0 ~/.config/alacritty
 
 unzip -o darverest/darverest-dark.zip -d ~/.themes
 xfconf-query -c xsettings -p /Net/ThemeName -s darverest-dark
+xfconf-query -c xfwm4 -p /general/theme -s darverest-dark
 
 cp darverest/gtk.css ~/.config/gtk-3.0/gtk.css
 cp darverest/alacritty.toml ~/.config/alacritty/alacritty.toml
 
 xfce4-panel -r
+xfwm4 --replace &
 ```
 
 Set either wallpaper through Desktop settings, or point every workspace at one:
@@ -110,6 +114,9 @@ for prop in $(xfconf-query -c xfce4-desktop -l | grep '/last-image$'); do
   xfconf-query -c xfce4-desktop -p "$prop" -s "$PWD/darverest/wallpapers/mv1.png"
 done
 ```
+
+If that loop prints nothing, set one wallpaper once in Desktop settings and run
+it again.
 
 ## grovy
 
@@ -130,20 +137,23 @@ mkdir -p ~/.themes ~/.config/gtk-3.0 ~/.config/alacritty ~/.config/fastfetch
 
 unzip -o grovy/dusky-grove-dark.zip -d ~/.themes
 xfconf-query -c xsettings -p /Net/ThemeName -s dusky-grove-dark
+xfconf-query -c xfwm4 -p /general/theme -s dusky-grove-dark
 
 cp grovy/gtk.css ~/.config/gtk-3.0/gtk.css
 cp grovy/alacritty.toml ~/.config/alacritty/alacritty.toml
 cp grovy/fastfetch/config.jsonc grovy/fastfetch/logo.txt ~/.config/fastfetch/
 
 xfce4-panel -r
+xfwm4 --replace &
 ```
 
 The fastfetch config points its logo at `~/.config/fastfetch/logo.txt`, so run
 `fastfetch` after copying the files into place — not from inside the repo.
 
-The theme installs as `dusky-grove-dark`, which is what you select above. Its
-bundled `index.theme` still carries the old internal name `duckai`; XFCE picks
-themes by folder name, so this is cosmetic and the zip is left untouched.
+The theme installs as `dusky-grove-dark`, which is what the commands above
+select. Its bundled `index.theme` still carries the old internal name `duckai`;
+if a tool labels the theme that way, it is the same theme. The zip is left
+untouched.
 
 Set the wallpaper through Desktop settings, or:
 
@@ -170,9 +180,11 @@ mkdir -p ~/.themes ~/.config/gtk-3.0 ~/.config/alacritty
 
 unzip -o monochrome/darkish-dark.zip -d ~/.themes
 xfconf-query -c xsettings -p /Net/ThemeName -s darkish-dark
+xfconf-query -c xfwm4 -p /general/theme -s darkish-dark
 
 cp monochrome/gtk.css ~/.config/gtk-3.0/gtk.css
 cp monochrome/alacritty.toml ~/.config/alacritty/alacritty.toml
 
 xfce4-panel -r
+xfwm4 --replace &
 ```
